@@ -1,0 +1,70 @@
+# Product Requirement Document (PRD) for Dynamic Configuration Management System
+
+## **1. Overview**
+The Dynamic Configuration Management System is designed to provide a centralized, flexible, and hierarchical management platform for configuration settings across various product layers, including frontend, backend, and database. The system aims to facilitate the easy creation and management of configurations with a user-friendly interface, while also ensuring robust functionality for both user-defined properties and essential defaults.
+
+## **2. Objectives**
+- Centralize all configuration settings into a unified structure.
+- Support hierarchical relationships to enable parent-child configuration management.
+- Allow users to define custom properties for configurations easily.
+- Automatically apply default values for missing fields when applicable.
+- Enable a reverse lookup to determine effective configurations for any user or node.
+
+## **3. Key Features**
+### 3.1 Hierarchy-Based Configurations
+- Users can create a root node (e.g., `Territory1`), which can have child nodes (e.g., `Center1`, `User1`). Each child node inherits configurations from its parent but can also override specific fields.
+
+### 3.2 Flexible Schema
+- The system supports user-defined properties, enabling dynamic form generation based on user input for each node.
+
+### 3.3 Default Values
+- The system auto-fills predefined default values for certain fields that are commonly used across the system if those fields are not provided by the user.
+
+### 3.4 Reverse Configuration Resolution
+- Users can get configuration settings based on their assigned hierarchy by querying from the lowest node (child) to the highest (root).
+
+### 3.5 User Authentication and Permissions
+- All changes to configurations are authenticated to ensure that only authorized users can create or modify settings. Each user session includes relevant identifiers for configuration lookups.
+
+## **4. User Interface Requirements**
+### 4.1 Node Creation
+- Users must have the capability to create root and child nodes easily.
+- The interface must enforce a mandatory `$NAME` field for each node.
+- A dynamic form should be displayed for entering properties, showing required and optional fields appropriately.
+
+### 4.2 Configuration Tree Viewing
+- Users should be able to navigate and visually inspect the entire configuration hierarchy in a tree structure.
+
+### 4.3 Child Node Management
+- Users should have seamless options to add child nodes under existing nodes, with required backend functionality to handle data correctly.
+
+## **5. Backend Requirements**
+### 5.1 API Functionalities
+- Expose endpoints for creating, updating, and fetching configuration nodes.
+- Handle default value assignments for missing fields when nodes are created or updated.
+- Implement logic for upward traversing to resolve configurations based on user IDs.
+
+### 5.2 Schema Validation
+- Ensure that the data stored conforms to expected types, applying necessary validation before saving.
+
+## **6. Database Requirements**
+- Use a database solution that supports semi-structured or schema-less storage for flexibility.
+- Maintain the hierarchical structure using `parentId` references to establish parent-child relationships among nodes.
+
+## **7. Security Requirements**
+- All API requests must be authenticated to enforce security.
+- The authorization token must encapsulate relevant user identifiers for configuration lookups to facilitate reverse resolution.
+
+## **8. Error Handling**
+- Provide clear user feedback for any errors encountered during configuration creation or updates.
+- Requiring users to recreate nodes for any structural errors rather than allowing in-place edits to maintain system integrity.
+
+## **9. Implementation Timeline**
+**Phase 1**: Design UI/UX - Create wireframes and prototypes for user interface.
+**Phase 2**: Backend Development - Set up APIs and database schemas.
+**Phase 3**: Integration - Connect frontend with backend services.
+**Phase 4**: Testing - Quality assurance for functional and user acceptance testing.
+**Phase 5**: Launch - Release the system to users with appropriate documentation.
+
+## **10. Conclusion**
+This Dynamic Configuration Management System aims to provide a robust, user-friendly tool to create, manage, and resolve configurations across a product hierarchy. By harmonizing user input with a structured backend and intelligent defaults, the system will serve as a crucial component for effective product management.
